@@ -1,10 +1,11 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useReducer } from "react";
 
 export const TodosContext = createContext();
 
 export const TodosProvider = ({ children }) => {
-  let idCounter = 4;
-  const [todos, setTodos] = useState([
+  let idCounter = 4; // only because we're not using a server/database
+
+  const initialState = [
     {
       id: 1,
       title: "delectus aut autem",
@@ -20,32 +21,42 @@ export const TodosProvider = ({ children }) => {
       title: "fugiat veniam minus",
       completed: false
     }
-  ]);
+  ];
 
-  const toggleTodoCompleted = id => {
-    let updatedTodos = todos.map(todo => {
-      if (todo.id === id) todo.completed = !todo.completed;
-      return todo;
-    });
-    console.log("heard", updatedTodos);
-    setTodos(updatedTodos);
+  const reducer = (state, action) => {
+    switch (action.type) {
+      case "ADD_TODO":
+        return [
+          ...state,
+          {
+            id: idCounter,
+            title: action.payload,
+            completed: false
+          }
+        ];
+
+      case "DELETE_TODO":
+        return state.filter(todo => todo.id !== action.id);
+
+      case "TOGGLE_COMPLETED":
+        console.log("action", action);
+        return state.map(todo => {
+          if (todo.id === action.id) {
+            todo.completed = !todo.completed;
+          }
+          return todo;
+        });
+
+      default:
+        return state;
+    }
   };
 
-  const addTodo = newTodo => {
-    setTodos([...todos, { id: idCounter, title: newTodo, completed: false }]);
-    idCounter++;
-  };
-
-  const deleteTodo = id => {
-    let updatedTodos = todos.filter(todo => todo.id !== id);
-    setTodos(updatedTodos);
-  };
+  const [todos, dispatch] = useReducer(reducer, initialState);
 
   const value = {
     todos,
-    addTodo,
-    toggleTodoCompleted,
-    deleteTodo
+    dispatch
   };
 
   return (

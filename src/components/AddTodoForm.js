@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { TodosContext } from "../contexts/TodosContext";
-const AddTodoForm = props => {
+
+const AddTodoForm = () => {
   const [newTodo, setNewTodo] = useState("");
   const { addTodo } = useContext(TodosContext);
 
@@ -23,4 +24,5 @@ const AddTodoForm = props => {
     </form>
   );
 };
+
 export default AddTodoForm;

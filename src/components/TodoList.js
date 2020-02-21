@@ -4,7 +4,6 @@ import Todo from "./Todo";
 
 const TodoList = props => {
   const { todos } = useContext(TodosContext);
-  console.log("todos", todos);
 
   const completedTodos = todos
     .filter(todo => todo.completed)
@@ -23,4 +22,5 @@ const TodoList = props => {
     </React.Fragment>
   );
 };
+
 export default TodoList;

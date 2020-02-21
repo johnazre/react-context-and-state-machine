@@ -2,15 +2,31 @@ import React, { useContext } from "react";
 import { TodosContext } from "../contexts/TodosContext";
 
 const Todo = ({ todo }) => {
-  const { deleteTodo, toggleTodoCompleted } = useContext(TodosContext);
+  const { dispatch } = useContext(TodosContext);
   console.log("todo: ", todo);
   return (
     <li>
       {todo.title} - {todo.completed ? "Complete" : "Incomplete"}
-      <button onClick={() => toggleTodoCompleted(todo.id)}>
+      <button
+        onClick={() =>
+          dispatch({
+            type: "TOGGLE_COMPLETED",
+            id: todo.id
+          })
+        }
+      >
         Toggle Status
       </button>
-      <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+      <button
+        onClick={() =>
+          dispatch({
+            type: "DELETE_TODO",
+            id: todo.id
+          })
+        }
+      >
+        Delete
+      </button>
     </li>
   );
 };
