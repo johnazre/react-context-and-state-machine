@@ -1,13 +1,16 @@
-import React, { useState, useContext } from "react";
-import { TodosContext } from "../contexts/TodosContext";
+import React, { useState, useContext } from 'react'
+import { TodosContext } from '../contexts/TodosContext'
 
 const AddTodoForm = () => {
-  const [newTodo, setNewTodo] = useState("");
-  const { addTodo } = useContext(TodosContext);
+  const [newTodo, setNewTodo] = useState('')
+  const { dispatch } = useContext(TodosContext)
 
   function handleSubmit(e) {
-    e.preventDefault();
-    addTodo(newTodo);
+    e.preventDefault()
+    dispatch({
+      type: 'ADD_TODO',
+      payload: newTodo
+    })
   }
 
   return (
@@ -22,7 +25,7 @@ const AddTodoForm = () => {
         <button type="submit">Submit</button>
       </p>
     </form>
-  );
-};
+  )
+}
 
-export default AddTodoForm;
+export default AddTodoForm

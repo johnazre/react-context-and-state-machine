@@ -1,16 +1,15 @@
-import React, { useContext } from "react";
-import { TodosContext } from "../contexts/TodosContext";
+import React, { useContext } from 'react'
+import { TodosContext } from '../contexts/TodosContext'
 
 const Todo = ({ todo }) => {
-  const { dispatch } = useContext(TodosContext);
-  console.log("todo: ", todo);
+  const { dispatch } = useContext(TodosContext)
   return (
     <li>
-      {todo.title} - {todo.completed ? "Complete" : "Incomplete"}
+      {todo.title} - {todo.completed ? 'Complete' : 'Incomplete'}
       <button
         onClick={() =>
           dispatch({
-            type: "TOGGLE_COMPLETED",
+            type: 'TOGGLE_COMPLETED',
             id: todo.id
           })
         }
@@ -20,7 +19,7 @@ const Todo = ({ todo }) => {
       <button
         onClick={() =>
           dispatch({
-            type: "DELETE_TODO",
+            type: 'DELETE_TODO',
             id: todo.id
           })
         }
@@ -28,6 +27,6 @@ const Todo = ({ todo }) => {
         Delete
       </button>
     </li>
-  );
-};
-export default Todo;
+  )
+}
+export default Todo
